@@ -22,7 +22,7 @@ export const routes: Routes = [
     {path:'', component:MainLayoutComponent, children:[
         {path:'profile', component: ProfileComponent},
         {path:'timeline', component:TimelineComponent},
-        {path: 'notigication', component:NotificationsComponent},
+        {path: 'notification', component:NotificationsComponent},
         {path: 'change-password', component:ChangePasswordComponent}
     ]},
 
