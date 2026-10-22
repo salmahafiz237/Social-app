@@ -21,22 +21,40 @@
                 </div>
                 <h2 class="text-2xl font-extrabold text-slate-900">Log in to Route Posts</h2>
                 <p class="mt-1 text-sm text-slate-500">Log in and continue your social journey.</p>
-                <form novalidate="" class="mt-5 space-y-3.5">
-                    <div>
-                        <div class="relative"><span
-                                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
+
+                <!-- form  -->
+                <form (ngSubmit)="sendLoginData()" [formGroup] = "loginForm" class="mt-5 space-y-3.5">
+                    <div>   
+
+                        <!-- email -->
+                        <div class="relative">
+                            <span
+                                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                                <svg
                                     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-user" aria-hidden="true">
                                     <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
-                                </svg></span><input placeholder="Email or username"
-                                class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white border-slate-200 focus:border-[#00298d]"
-                                type="text" name="login"></div>
+                                </svg>
+                            </span>
+                            <input
+                            [class]="{
+                                    'border-green-700': loginForm.get('email')?.valid,
+                                    'border-red-300': loginForm.get('email')?.invalid && loginForm.get('email')?.touched
+                                }"
+                            formControlName="email" placeholder="Email"
+                                class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white focus:border-[#00298d]"
+                                type="text" name="login">
+                        </div>
                     </div>
+
+                    <!-- password -->
                     <div>
-                        <div class="relative"><span
-                                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"><svg
+                        <div class="relative">
+                            <span
+                                class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                                <svg
                                     xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
                                     fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                     stroke-linejoin="round" class="lucide lucide-key-round" aria-hidden="true">
@@ -44,12 +62,26 @@
                                         d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z">
                                     </path>
                                     <circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle>
-                                </svg></span><input placeholder="Password"
-                                class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white border-slate-200 focus:border-[#00298d]"
-                                type="password" name="password"></div>
-                    </div><button
+                                </svg>
+                            </span>
+                            <input 
+                            [class]="{
+                                    'border-green-700': loginForm.get('password')?.valid,
+                                    'border-red-300': loginForm.get('password')?.invalid && loginForm.get('password')?.touched
+                                }"
+                            formControlName="password" placeholder="Password"
+                                
+                                class="w-full rounded-xl border bg-slate-50 py-3 pl-11 pr-4 text-sm text-slate-800 outline-none transition focus:bg-white focus:border-[#00298d]"
+                                type="password" name="password">
+                        </div>
+                    </div>
+                    
+                    <!-- buttons  -->
+                    <button
                         class="w-full rounded-xl py-3 text-base font-extrabold text-white transition disabled:opacity-60 bg-[#00298d] hover:bg-[#001f6b]">Log
-                        In</button><button type="button"
+                        In</button>
+                    
+                    <button type="button"
                         class="cursor-pointer mx-auto block text-sm font-semibold text-[#00298d] transition hover:underline">Forgot
                         password?</button>
                 </form>

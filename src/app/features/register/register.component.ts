@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LeftSideComponent } from '../../layouts/auth-layout/components/left-side/left-side.component';
+import { AuthService } from '../../core/auth/services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,11 @@ import { LeftSideComponent } from '../../layouts/auth-layout/components/left-sid
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  mgText = signal("");
+  isLoading = signal(false);
+
   registerForm = new FormGroup({
     name: new FormControl("", [Validators.required, Validators.minLength(3)]),
     username: new FormControl(""),
@@ -22,7 +28,27 @@ export class RegisterComponent {
 
   sendRegisterData():void{
     if(this.registerForm.valid){      
+      this.isLoading.set(true);
       console.log(this.registerForm.value);
+
+      this.authService.signUp(this.registerForm.value).subscribe({
+        next:(res) =>{console.log(res);
+          if(res.success){
+            this.router.navigate(['/login']);
+          }
+        },
+        error:(err) =>{
+          console.log(err.error.message);
+          this.mgText.set(err.error.message);
+          this.isLoading.set(false);
+        },
+        complete:()=>{
+          this.isLoading.set(false);
+        }
+      });
+    }
+    else{
+      this.registerForm.markAllAsTouched();
     }
   }
 }
