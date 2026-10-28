@@ -238,16 +238,23 @@
                             </div>
                         </div>
 
-                        <!-- rePassword alert  -->
-                        @if(registerForm.get('rePassword')?.invalid && registerForm.get('rePassword')?.touched){
+                        <!-- rePassword alert -->
+                        @if ((registerForm.get('rePassword')?.invalid || registerForm.hasError('missMatch')) &&
+                        registerForm.get('rePassword')?.touched) {
                         <div class="flex p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft border border-danger-subtle"
                             role="alert">
                             <span class="sr-only">Danger</span>
                             <div>
                                 <ul class="mt-2 list-disc list-outside space-y-1 ps-2.5">
-                                    @if(registerForm.get('rePassword')?.hasError('required')){
-                                        <li>Please confirm your password.</li>
+                        
+                                    @if (registerForm.get('rePassword')?.hasError('required')) {
+                                    <li>Confirm password is required.</li>
                                     }
+                        
+                                    @if (registerForm.hasError('missMatch')) {
+                                    <li>Password do not match.</li>
+                                    }
+                        
                                 </ul>
                             </div>
                         </div>

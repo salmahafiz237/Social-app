@@ -2,8 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { LeftSideComponent } from '../../layouts/auth-layout/components/left-side/left-side.component';
 import { AuthService } from '../../core/auth/services/auth.service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
-// import { NgClass } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule, Validators, ɵInternalFormsSharedModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,13 +13,17 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators, ɵInternalForm
 export class LoginComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly formBuilder = inject(FormBuilder);
   mgText = signal("");
   
-
-  loginForm = new FormGroup({
-    email: new FormControl("",[Validators.required, Validators.email]),
-    password: new FormControl("", [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/)]),
-  });
+  loginForm = this.formBuilder.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/)]],
+  })
+  // loginForm = new FormGroup({
+  //   email: new FormControl("",[Validators.required, Validators.email]),
+  //   password: new FormControl("", [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/)]),
+  // });
 
   sendLoginData():void{
     if(this.loginForm.valid){      
@@ -29,6 +32,8 @@ export class LoginComponent {
       this.authService.signIn(this.loginForm.value).subscribe({
         next:(res) =>{console.log(res);
           if(res.success){
+            localStorage.setItem("token", res.data.token)
+            localStorage.setItem("token", JSON.stringify(res.data.user))
             this.router.navigate(['/timeline']);
           }
         },

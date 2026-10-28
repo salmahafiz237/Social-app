@@ -1,7 +1,7 @@
 <nav class="bg-neutral-primary w-full z-20 top-0 inset-s-0 border-b border-default">
     <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-2">
         <a class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="/logo.png" class="h-8 rounded" alt="Route Logo" />
+            <img src="assets/logo.png" class="h-8 rounded" alt="Route Logo" />
             <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">Route Posts</span>
         </a>
 
@@ -11,7 +11,7 @@
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="/favicon.png" alt="user photo" />
+                <img class="w-8 h-8 rounded-full" src="assets/profile.jpeg" alt="user photo" />
             </button>
             <!-- Dropdown menu -->
             <div class="z-50 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44"
@@ -28,6 +28,7 @@
 
                     <li>
                         <a
+                        (click)="logOut()"
                             class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">LogOut</a>
                     </li>
                 </ul>

@@ -20,35 +20,4 @@ body {
     font-family: "SN-pro-VariableFont";
     src: local("../public/fonts/SNPro-VariableFont_wght.ttf");
 }
-/* @font-face {
-    font-family: "SN-pro-black";
-    src: local("../public/fonts/SNPro-Black.ttf");
-}
-@font-face {
-    font-family: "SN-pro-bold";
-    src: local("../public/fonts/SNPro-Bold.ttf");
-}
-@font-face {
-    font-family: "SN-pro-semiBold";
-    src: local("../public/fonts/SNPro-SemiBold.ttf");
-}
-@font-face {
-    font-family: "SN-pro-extraBold";
-    src: local("../public/fonts/SNPro-ExtraBold.ttf");
-}
-@font-face {
-    font-family: "SN-pro-extraLight";
-    src: local("../public/fonts/SNPro-ExtraLight.ttf");
-}
-@font-face {
-    font-family: "SN-pro-light";
-    src: local("../public/fonts/SNPro-Light.ttf");
-}
-@font-face {
-    font-family: "SN-pro-medium";
-    src: local("../public/fonts/SNPro-Medium.ttf");
-}
-@font-face {
-    font-family: "SN-pro-regular";
-    src: local("../public/fonts/SNPro-Regular.ttf");
-} */
+
