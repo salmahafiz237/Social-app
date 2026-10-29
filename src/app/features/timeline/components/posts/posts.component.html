@@ -1,4 +1,54 @@
 <section>
+    <!-- create -->
+    <div class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col">
+        <div class="flex items-center gap-3 mb-3">
+            <img src="assets/profile.jpeg" alt="Ahmed Menisy"
+                class="w-10 h-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50" />
+    
+            <div>
+                <span class="text-[15px] font-bold text-slate-900 leading-tight">Salma Mohamed</span>
+                <div
+                    class="flex p-1 w-fit items-center bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                    <i class="fa-solid fa-earth-americas text-[11px] text-slate-600"></i>
+    
+                    <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                        <option value="public">public</option>
+                        <option value="following">followers</option>
+                        <option value="only_me">only me</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    
+        <div class="mb-4">
+            <textarea
+                class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-[15px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-300 transition-all resize-y min-h-30"
+                placeholder="What's on your mind...?" aria-label="Create a new post"></textarea>
+        </div>
+    
+        <hr class="border-t border-slate-800 mb-4" />
+    
+        <div class="flex items-center justify-between">
+            <input (change)="changeFile($event)" type="file" id="file" class="hidden" />
+            <label for="file"
+                class="flex cursor-pointer items-center gap-2 text-slate-600 hover:bg-slate-50 px-2 py-1.5 rounded-lg transition-colors group">
+                <i class="fa-regular fa-image text-[#22c55e] text-[1.1rem] group-hover:scale-110 transition-transform"></i>
+                <span class="text-[14px] font-semibold text-slate-600">Photo/video</span>
+            </label>
+    
+            <button
+                class="cursor-pointer bg-blue-500 text-white px-5 py-2 rounded-lg font-bold text-[14px] flex items-center gap-2 focus:ring-4 focus:ring-blue-200 outline-none">
+                Post
+                <i class="fa-regular fa-paper-plane text-sm"></i>
+            </button>
+        </div>
+
+        @if(imgSrc()){
+            <img [src]="imgSrc()" class="h-63 mt-4">
+        }
+    </div>
+
+    <!--post-->
     @for (post of allPosts(); track $index) {
         <div class="bg-white rounded-[16px] my-3 shadow-sm border border-slate-200 p-4 font-sans">
             <!-- user details  -->
@@ -17,7 +67,7 @@
         
                             <div
                                 class="p-0 w-fit items-center bg-neutral-secondary-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
-                                <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                                <select [disabled]="post.user._id !== userId()" class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
                                     <option [selected]="post.privacy ==='public'" value="public">public</option>
                                     <option [selected]="post.privacy ==='following'" value="following">followers</option>
                                     <option [selected]="post.privacy ==='only_me'" value="only_me">only me</option>
@@ -43,18 +93,19 @@
                         class="z-30 hidden group-hover:block absolute bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
                         <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
                             <li>
-                                <button
-                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                                    Save Post
-                                </button>
-                                <button
-                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                                    Edit post
-                                </button>
-                                <button
-                                    class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                                    Delete post
-                                </button>
+                                @if(post.user._id == userId()){
+                                    <button class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                        Edit post
+                                    </button>
+                                    <button
+                                        class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                        Delete post
+                                    </button>
+                                }@else {
+                                    <button class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                        Save Post
+                                    </button>
+                                }
                             </li>
                         </ul>
                     </div>

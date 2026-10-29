@@ -11,8 +11,13 @@ import { Post } from './models/post.interface';
 export class PostsComponent implements OnInit {
   private readonly postsService = inject(PostsService);
   allPosts= signal<Post[]>([]);
+  userId = signal('');
+  file = signal<File | null>(null);
+  imgSrc = signal('');
+
   ngOnInit(): void {
     this.getPostsData();
+    this.userId.set(JSON.parse(localStorage.getItem('user')!)._id);
   }
 
   getPostsData(): void {
@@ -25,5 +30,12 @@ export class PostsComponent implements OnInit {
         console.log(err);
       },
     });
+  }
+
+  changeFile(e:Event):void{
+    let input = e.target as HTMLInputElement;
+    console.log(input.files![0])
+    this.file.set(input.files![0])
+    this.imgSrc.set( URL.createObjectURL(input.files![0]));
   }
 }

@@ -1,12 +1,15 @@
-<section class="mx-4">
-    <div class="container grid md:grid-cols-[220px_minmax(0,1fr)_350px] gap-4 pt-4">
-        <!-- side-left -->
-        <app-side-left></app-side-left>
+<section class="mx-4 bg-[#F2F4F6]">
+    <!-- Parent Grid Container -->
+    <div class="container mx-auto grid gap-4 pt-4 xl:grid-cols-[240px_minmax(0,1fr)_300px]">
 
-        <!-- posts -->
-        <app-posts></app-posts>
+        <!-- Left Sidebar -->
+        <app-side-left class="hidden h-fit space-y-3 xl:sticky xl:top-18 xl:block"></app-side-left>
 
-        <!-- right-side -->
-        <app-side-right></app-side-right>
+        <!-- Center Feed / Posts -->
+        <app-posts class="space-y-4 min-w-0"></app-posts>
+
+        <!-- Right Sidebar -->
+        <app-side-right class="hidden h-fit xl:sticky xl:top-18 xl:block"></app-side-right>
+
     </div>
-</section>
+    </section>
