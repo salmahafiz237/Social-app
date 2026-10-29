@@ -1,110 +1,115 @@
-<div class="bg-white rounded-[16px] my-3 shadow-sm border border-slate-200 p-4 font-sans">
-    <!-- user details  -->
-    <div class="flex items-start justify-between mb-3">
-        <div class="flex items-center gap-3">
-            <img src="https://i.pravatar.cc/150?img=11" alt="Ahmed Menisy"
-                class="size-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50" />
-
-            <div>
-                <span class="text-[15px] font-bold text-slate-900 leading-tight hover:underline cursor-pointer">Ahmed
-                    Menisy</span>
-                <div class="flex items-center text-[13px] text-slate-500 mt-0.5 gap-1">
-                    <span class="hover:underline cursor-pointer">@menisy</span>
-                    <span>&middot;</span>
-                    <span class="hover:underline cursor-pointer">12h</span>
-                    <span>&middot;</span>
-
-                    <div
-                        class="p-0 w-fit items-center bg-neutral-secondary-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
-                        <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
-                            <option value="public">public</option>
-                            <option value="following">followers</option>
-                            <option value="only_me">only me</option>
-                        </select>
+<section>
+    @for (post of allPosts(); track $index) {
+        <div class="bg-white rounded-[16px] my-3 shadow-sm border border-slate-200 p-4 font-sans">
+            <!-- user details  -->
+            <div class="flex items-start justify-between mb-3">
+                <div class="flex items-center gap-3">
+                    <img [src]="post.user.photo" [alt]="post.user.name"
+                        class="size-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50" />
+        
+                    <div>
+                        <span class="text-[15px] font-bold text-slate-900 leading-tight hover:underline cursor-pointer">{{post.user.name}}</span>
+                        <div class="flex items-center text-[13px] text-slate-500 mt-0.5 gap-1">
+                            <span class="hover:underline cursor-pointer">@{{post.user.username}}</span>
+                            <span>&middot;</span>
+                            <span class="hover:underline cursor-pointer">{{post.createdAt}}</span>
+                            <span>&middot;</span>
+        
+                            <div
+                                class="p-0 w-fit items-center bg-neutral-secondary-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
+                                <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                                    <option [selected]="post.privacy ==='public'" value="public">public</option>
+                                    <option [selected]="post.privacy ==='following'" value="following">followers</option>
+                                    <option [selected]="post.privacy ==='only_me'" value="only_me">only me</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="relative group">
+                    <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
+                        class="text-heading bg-neutral-primary box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm p-2 focus:outline-none"
+                        type="button">
+                        <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="3"
+                                d="M12 6h.01M12 12h.01M12 18h.01" />
+                        </svg>
+                    </button>
+        
+                    <!-- Dropdown menu -->
+                    <div id="dropdownDots"
+                        class="z-30 hidden group-hover:block absolute bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
+                        <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
+                            <li>
+                                <button
+                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                    Save Post
+                                </button>
+                                <button
+                                    class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                    Edit post
+                                </button>
+                                <button
+                                    class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
+                                    Delete post
+                                </button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="relative group">
-            <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
-                class="text-heading bg-neutral-primary box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm p-2 focus:outline-none"
-                type="button">
-                <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                    fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-width="3"
-                        d="M12 6h.01M12 12h.01M12 18h.01" />
-                </svg>
-            </button>
-
-            <!-- Dropdown menu -->
-            <div id="dropdownDots"
-                class="z-30 hidden group-hover:block absolute bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
-                <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
-                    <li>
-                        <button
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                            Save Post
-                        </button>
-                        <button
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                            Edit post
-                        </button>
-                        <button
-                            class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                            Delete post
-                        </button>
-                    </li>
-                </ul>
+        
+            <!-- post content  -->
+            <div class="text-[15px] text-slate-900 mb-4">
+                @if (post.body) {
+                    <p>{{post.body}}</p>
+                }
+                @if (post.image) {
+                    <img [src]="post.image" class="w-full max-h-90 object-cover rounded shadow mt-2" [alt]="post.body" />
+                }
             </div>
-        </div>
-    </div>
-
-    <!-- post content  -->
-    <div class="text-[15px] text-slate-900 mb-4">
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae, quod?</p>
-        <img src="/assets/logo.png" class="w-full max-h-90 object-cover rounded shadow mt-2" alt="" />
-    </div>
-
-    <!-- like share comments  counts & view details -->
-    <div class="flex items-center justify-between text-[13px] text-slate-500 mb-3 px-1">
-        <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
-            <div class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-2xs">
-                <i class="fa-solid fa-thumbs-up"></i>
+        
+            <!-- like share comments  counts & view details -->
+            <div class="flex items-center justify-between text-[13px] text-slate-500 mb-3 px-1">
+                <div class="flex items-center gap-1.5 cursor-pointer hover:underline">
+                    <div class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center text-2xs">
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    </div>
+                    <span>{{post.likesCount}} likes</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span class="cursor-pointer hover:underline">{{post.sharesCount}} shares</span>
+                    <span class="cursor-pointer hover:underline">{{post.commentsCount}} comments</span>
+                    <button class="font-semibold cursor-pointer text-blue-600 hover:underline">
+                        View details
+                    </button>
+                </div>
             </div>
-            <span>0 likes</span>
+        
+            <hr class="border-t border-slate-200 mb-1" />
+        
+            <!-- buttons like - comment - share -->
+            <div class="flex items-center justify-between px-1 py-1">
+                <button
+                    class="flex-1 cursor-pointer flex items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
+                    <i class="fa-regular fa-thumbs-up text-lg"></i>
+                    Like
+                </button>
+                <button
+                    class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
+                    <i class="fa-regular fa-message text-lg"></i>
+                    Comment
+                </button>
+                <button
+                    class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
+                    <i class="fa-solid fa-share text-lg"></i>
+                    Share
+                </button>
+            </div>
+        
+            <hr class="border-t border-slate-200 mt-1 mb-4" />  
         </div>
-        <div class="flex items-center gap-3">
-            <span class="cursor-pointer hover:underline">0 shares</span>
-            <span class="cursor-pointer hover:underline">1 comments</span>
-            <button class="font-semibold cursor-pointer text-blue-600 hover:underline">
-                View details
-            </button>
-        </div>
-    </div>
-
-    <hr class="border-t border-slate-200 mb-1" />
-
-    <!-- buttons like - comment - share -->
-    <div class="flex items-center justify-between px-1 py-1">
-        <button
-            class="flex-1 cursor-pointer flex items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
-            <i class="fa-regular fa-thumbs-up text-lg"></i>
-            Like
-        </button>
-        <button
-            class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
-            <i class="fa-regular fa-message text-lg"></i>
-            Comment
-        </button>
-        <button
-            class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
-            <i class="fa-solid fa-share text-lg"></i>
-            Share
-        </button>
-    </div>
-
-    <hr class="border-t border-slate-200 mt-1 mb-4" />
-
-
-</div>
+    }
+</section>
