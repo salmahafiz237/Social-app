@@ -8,7 +8,7 @@ export interface Post {
     createdAt: string
     image: string
     commentsCount: number
-    topComment: TopComment
+    // topComment: TopComment
     sharesCount: number
     likesCount: number
     isShare: boolean
@@ -17,23 +17,6 @@ export interface Post {
   }
   
   export interface User {
-    _id: string
-    name: string
-    username: string
-    photo: string
-  }
-  
-  export interface TopComment {
-    _id: string
-    content: string
-    commentCreator: CommentCreator
-    post: string
-    parentComment: any
-    likes: any[]
-    createdAt: string
-  }
-  
-  export interface CommentCreator {
     _id: string
     name: string
     username: string

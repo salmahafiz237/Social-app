@@ -5,34 +5,61 @@
             <span class="self-center text-xl text-heading font-semibold whitespace-nowrap">Route Posts</span>
         </a>
 
-        <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <div class="relative flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+            <!-- User Menu Button-->
             <button type="button"
-                class="flex text-sm bg-neutral-primary rounded-full md:me-0 focus:ring-4 focus:ring-neutral-tertiary"
+                class="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 py-1.5 transition hover:bg-slate-100"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="assets/profile.jpeg" alt="user photo" />
+                <img class="h-8 w-8 rounded-full object-cover" src="assets/profile.jpeg" alt="Salma Mohamed" />
+                <span class="hidden max-w-35 truncate text-sm font-semibold text-slate-800 md:block">User
+                    Name</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-menu text-slate-500" aria-hidden="true">
+                    <path d="M4 5h16"></path>
+                    <path d="M4 12h16"></path>
+                    <path d="M4 19h16"></path>
+                </svg>
             </button>
-            <!-- Dropdown menu -->
-            <div class="z-50 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44"
-                id="user-dropdown">
-                <div class="px-4 py-3 text-sm border-b border-default">
-                    <span class="block text-heading font-medium">User Name</span>
-                </div>
-                <ul class="p-2 text-sm text-body font-medium" aria-labelledby="user-menu-button">
-                    <li>
-                        <a routerLink="/change" routerLinkActive="bg-neutral-tertiary-medium"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
-                            <i class="fa-solid fa-gear"></i> Settings</a>
-                    </li>
 
-                    <li>
-                        <a
-                        (click)="logOut()"
-                            class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">LogOut</a>
-                    </li>
-                </ul>
+            <!-- Dropdown Menu -->
+            <div class="absolute right-0 top-full z-50 mt-2 hidden w-52 rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
+                id="user-dropdown">
+
+                <a routerLink="/profile" routerLinkActive="bg-slate-100"
+                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-user" aria-hidden="true">
+                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Profile
+                </a>
+
+                <a routerLink="/change" routerLinkActive="bg-slate-100"
+                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-settings" aria-hidden="true">
+                        <path
+                            d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915">
+                        </path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                    Settings
+                </a>
+
+                <div class="my-1 border-t border-slate-200"></div>
+
+                <button (click)="logOut()"
+                    class="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold text-rose-600 hover:bg-rose-50">
+                    Logout
+                </button>
             </div>
+
             <button data-collapse-toggle="navbar-user" type="button"
                 class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base md:hidden hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
                 aria-controls="navbar-user" aria-expanded="false">
@@ -66,4 +93,3 @@
         </div>
     </div>
 </nav>
-  

@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { PostsService } from './services/posts.service';
 import { Post } from './models/post.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { CommentsComponent } from './components/comments/comments.component';
 
 @Component({
   selector: 'app-posts',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommentsComponent],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })
@@ -42,7 +43,7 @@ export class PostsComponent implements OnInit {
     this.imgSrc.set( URL.createObjectURL(input.files![0]));
   }
 
-  submitForm(e:Event):void{
+  submitForm(e:Event, reset:HTMLFormElement):void{
     e.preventDefault();
     // console.log(this.content.value, this.privacy.value, this.file())
     // this.content.value;
@@ -68,7 +69,25 @@ export class PostsComponent implements OnInit {
       },
       error: (err)=>{
         console.log(err);
+      },
+      complete:() =>{
+        // (e.target as HTMLFormElement).reset()
+        reset.reset()
+        this.imgSrc.set('')
       }
     })
+  }
+
+  deleteItem(id: string): void {
+    this.postsService.deletePost(id).subscribe({
+      next: (res) => {
+        console.log('Delete response:', res);
+
+        this.allPosts.update((posts) => posts.filter((post) => post._id !== id));
+      },
+      error: (err) => {
+        console.error('Error deleting post:', err);
+      }
+    });
   }
 }

@@ -1,6 +1,6 @@
 <section>
     <!-- create -->
-    <form (submit)="submitForm($event)" class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col">
+    <form #reset (submit)="submitForm($event, reset)" class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col">
         <div class="flex items-center gap-3 mb-3">
             <img src="assets/profile.jpeg" alt="Ahmed Menisy"
                 class="w-10 h-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50" />
@@ -93,11 +93,11 @@
                         class="z-30 hidden group-hover:block absolute bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
                         <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownMenuIconButton">
                             <li>
-                                @if(post.user._id == userId()){
+                                @if(post.user._id.toString() === userId().toString()){
                                     <button class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                                         Edit post
                                     </button>
-                                    <button
+                                    <button (click)="deleteItem(post._id)"
                                         class="inline-flex text-red-700 items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">
                                         Delete post
                                     </button>
@@ -148,7 +148,7 @@
                     <i class="fa-regular fa-thumbs-up text-lg"></i>
                     Like
                 </button>
-                <button
+                <button #el
                     class="flex-1 flex cursor-pointer items-center justify-center gap-2 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 py-2 rounded-lg transition-colors">
                     <i class="fa-regular fa-message text-lg"></i>
                     Comment
@@ -161,6 +161,11 @@
             </div>
         
             <hr class="border-t border-slate-200 mt-1 mb-4" />  
+
+            <!-- comment -->
+            @defer (on interaction(el)) {
+                <app-comments [postId]="post.id"></app-comments>
+            }
         </div>
     }
 </section>
