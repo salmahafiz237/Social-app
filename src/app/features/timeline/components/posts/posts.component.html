@@ -1,6 +1,6 @@
 <section>
     <!-- create -->
-    <div class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col">
+    <form (submit)="submitForm($event)" class="w-full bg-white rounded-[16px] shadow-sm border border-slate-200 p-4 font-sans flex flex-col">
         <div class="flex items-center gap-3 mb-3">
             <img src="assets/profile.jpeg" alt="Ahmed Menisy"
                 class="w-10 h-10 rounded-full object-cover shrink-0 bg-slate-100 border border-slate-50" />
@@ -11,7 +11,7 @@
                     class="flex p-1 w-fit items-center bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body">
                     <i class="fa-solid fa-earth-americas text-[11px] text-slate-600"></i>
     
-                    <select class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
+                    <select [formControl]="privacy" class="border-none bg-transparent cursor-pointer ring-0 py-0 px-2 text-xs">
                         <option value="public">public</option>
                         <option value="following">followers</option>
                         <option value="only_me">only me</option>
@@ -21,7 +21,7 @@
         </div>
     
         <div class="mb-4">
-            <textarea
+            <textarea [formControl]="content"
                 class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-[15px] text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-blue-50 focus:border-blue-300 transition-all resize-y min-h-30"
                 placeholder="What's on your mind...?" aria-label="Create a new post"></textarea>
         </div>
@@ -46,7 +46,7 @@
         @if(imgSrc()){
             <img [src]="imgSrc()" class="h-63 mt-4">
         }
-    </div>
+    </form>
 
     <!--post-->
     @for (post of allPosts(); track $index) {
