@@ -90,4 +90,56 @@ export class PostsComponent implements OnInit {
       }
     });
   }
+
+  // update post
+  editingPostId = signal<string | null>(null);
+  editBody = new FormControl('');
+  editPrivacy = new FormControl('public');
+  editFile = signal<File | null>(null);
+  editImgSrc = signal('');
+
+  startEdit(post: Post): void {
+    this.editingPostId.set(post._id);
+    this.editBody.setValue(post.body);
+    this.editPrivacy.setValue(post.privacy);
+    this.editFile.set(null);
+    this.editImgSrc.set('');
+  }
+
+  cancelEdit(): void {
+    this.editingPostId.set(null);
+    this.editFile.set(null);
+    this.editImgSrc.set('');
+  }
+
+  changeEditFile(e: Event): void {
+    const input = e.target as HTMLInputElement;
+    if (!input.files?.length) return;
+    this.editFile.set(input.files[0]);
+    this.editImgSrc.set(URL.createObjectURL(input.files[0]));
+  }
+
+  updatePost(postId: string): void {
+    const formData = new FormData();
+    if (this.editBody.value) {
+      formData.append('body', this.editBody.value);
+    }
+    if (this.editPrivacy.value) {
+      formData.append('privacy', this.editPrivacy.value);
+    }
+    if (this.editFile()) {
+      formData.append('image', this.editFile()!);
+    }
+
+    this.postsService.updatePost(postId, formData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.cancelEdit();
+        this.getPostsData();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
 }

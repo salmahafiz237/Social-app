@@ -29,4 +29,8 @@ export class PostsService {
   createPost(data:object):Observable<any>{
     return this.httpClient.post(environment.baseUrl+ `posts`, data, this.headers)
   }
+
+  updatePost(postId:string, data:FormData):Observable<any>{
+    return this.httpClient.put(environment.baseUrl + `posts/${postId}`, data, this.headers)
+  }
 }

@@ -19,4 +19,16 @@ export class CommentService {
   getAllComments(postId:string, limit:number=10):Observable<any>{
     return this.httpClient.get(environment.baseUrl + `posts/${postId}/comments?page=1&${limit}`, this.headers)
   }
+
+  createComment(postId:string, data:FormData):Observable<any>{
+    return this.httpClient.post(environment.baseUrl + `posts/${postId}/comments`, data, this.headers)
+  }
+
+  updateComment(postId:string, commentId:string, data:FormData):Observable<any>{
+    return this.httpClient.put(environment.baseUrl + `posts/${postId}/comments/${commentId}`, data, this.headers)
+  }
+
+  deleteComment(postId:string, commentId:string):Observable<any>{
+    return this.httpClient.delete(environment.baseUrl + `posts/${postId}/comments/${commentId}`, this.headers)
+  }
 }
