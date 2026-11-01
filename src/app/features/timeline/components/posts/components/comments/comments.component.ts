@@ -1,6 +1,6 @@
 import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
-import { Comment } from '../../models/comment.interface';
+import { Comment, CommentCreator } from '../../models/comment.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,7 @@ export class CommentsComponent implements OnInit {
   postId = input.required<string>();
   allComments = signal<Comment[]>([]);
   userId = signal('');
+  currentUser = signal<CommentCreator>({} as CommentCreator);
 
   // create
   content = new FormControl('');
@@ -27,7 +28,9 @@ export class CommentsComponent implements OnInit {
   editImgSrc = signal('');
 
   ngOnInit(): void {
-    this.userId.set(JSON.parse(localStorage.getItem('user')!)._id);
+    const user = JSON.parse(localStorage.getItem('user')!);
+    this.currentUser.set(user);
+    this.userId.set(user._id);
     this.getComments();
   }
 

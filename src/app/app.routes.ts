@@ -11,6 +11,7 @@ import { ForgetPasswordComponent } from './features/forget-password/forget-passw
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard } from './core/auth/guard/auth-guard';
 import { guestGuard } from './core/auth/guard/guest-guard';
+import { DetailsComponent } from './features/details/details.component';
 
 export const routes: Routes = [
     {path:'', redirectTo:'login', pathMatch:'full'},
@@ -25,7 +26,8 @@ export const routes: Routes = [
         {path:'profile', component: ProfileComponent},
         {path:'timeline', component:TimelineComponent},
         {path: 'notification', component:NotificationsComponent},
-        {path: 'change-password', component:ChangePasswordComponent}
+        {path: 'change-password', component:ChangePasswordComponent},
+        {path: 'details/:id', component: DetailsComponent}
     ]},
 
     {path:'not-found', component:NotFoundComponent},
