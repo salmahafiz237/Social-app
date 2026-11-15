@@ -22,6 +22,11 @@ export class AuthService {
     return this.httpClient.post(environment.baseUrl + 'users/signin',data);
   }
 
+  // change password
+  changePassword(data: { password: string; newPassword: string }): Observable<any> {
+    return this.httpClient.patch(environment.baseUrl + 'users/change-password', data);
+  }
+
   //logOut
   logOut():void{
     localStorage.removeItem('token');
