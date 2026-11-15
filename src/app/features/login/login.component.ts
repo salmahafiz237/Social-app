@@ -32,7 +32,7 @@ export class LoginComponent {
       this.authService.signIn(this.loginForm.value).subscribe({
         next:(res) =>{console.log(res);
           if(res.success){
-            localStorage.setItem("token", res.token)
+            localStorage.setItem("token", res.data.token)
             localStorage.setItem("user", JSON.stringify(res.data.user))
             this.router.navigate(['/timeline']);
           }

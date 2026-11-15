@@ -15,22 +15,22 @@ export class PostsService {
   }
 
   getAllPosts(): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + `posts`,this.headers)
+    return this.httpClient.get(environment.baseUrl + `posts`)
   }
 
   getSinglePost(posdId:string):Observable<any>{
-    return this.httpClient.get(environment.baseUrl + `posts/${posdId}`, this.headers)
+    return this.httpClient.get(environment.baseUrl + `posts/${posdId}`)
   }
 
   deletePost(posdId:string):Observable<any>{
-    return this.httpClient.delete(environment.baseUrl + `posts/${posdId}`, this.headers)
+    return this.httpClient.delete(environment.baseUrl + `posts/${posdId}`)
   }
 
   createPost(data:object):Observable<any>{
-    return this.httpClient.post(environment.baseUrl+ `posts`, data, this.headers)
+    return this.httpClient.post(environment.baseUrl+ `posts`, data)
   }
 
   updatePost(postId:string, data:FormData):Observable<any>{
-    return this.httpClient.put(environment.baseUrl + `posts/${postId}`, data, this.headers)
+    return this.httpClient.put(environment.baseUrl + `posts/${postId}`, data)
   }
 }
