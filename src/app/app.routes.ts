@@ -17,19 +17,19 @@ export const routes: Routes = [
     {path:'', redirectTo:'login', pathMatch:'full'},
 
     {path:'',canActivate:[guestGuard] ,component:AuthLayoutComponent,children:[
-        {path:'login', component:LoginComponent},
-        {path:'register', component:RegisterComponent},
-        {path: 'forget-password', component:ForgetPasswordComponent}
+        {path:'login', component:LoginComponent, title:"Login Page"},
+        {path:'register', component:RegisterComponent, title:"Register Page"},
+        {path: 'forget-password', component:ForgetPasswordComponent, title:"Forget Password"}
     ]},
 
     {path:'', component:MainLayoutComponent, canActivate:[authGuard], children:[
-        {path:'profile', component: ProfileComponent},
-        {path:'timeline', component:TimelineComponent},
-        {path: 'notification', component:NotificationsComponent},
-        {path: 'change-password', component:ChangePasswordComponent},
-        {path: 'details/:id', component: DetailsComponent}
+        {path:'profile', component: ProfileComponent, title:"Profile Page"},
+        {path:'timeline', component:TimelineComponent, title:"Home Page"},
+        {path: 'notification', component:NotificationsComponent, title:"Notifications Page"},
+        {path: 'change-password', component:ChangePasswordComponent, title:"Change Password"},
+        {path: 'details/:id', component: DetailsComponent, title:"Details"}
     ]},
 
     {path:'not-found', component:NotFoundComponent},
-    {path:'**', redirectTo:'not-found', pathMatch:'full'},
+    {path:'**', redirectTo:'not-found', pathMatch:'full', title:"Not-Found Page"},
 ];
