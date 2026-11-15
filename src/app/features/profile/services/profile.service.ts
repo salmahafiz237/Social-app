@@ -27,4 +27,6 @@ uploadProfilePhoto(data: FormData): Observable<any> {
   return this.httpClient.put(environment.baseUrl + 'users/upload-photo', data);
 }
 
+
+
 }

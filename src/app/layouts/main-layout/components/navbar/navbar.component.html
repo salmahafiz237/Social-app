@@ -12,9 +12,8 @@
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                <img class="h-8 w-8 rounded-full object-cover" src="assets/profile.jpeg" alt="Salma Mohamed" />
-                <span class="hidden max-w-35 truncate text-sm font-semibold text-slate-800 md:block">User
-                    Name</span>
+                <img class="h-8 w-8 rounded-full object-cover" [src]="[profileData()?.photo]" [alt]="[profileData()?.name]" />
+                <span class="hidden max-w-35 truncate text-sm font-semibold text-slate-800 md:block">{{profileData()?.name}}</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-menu text-slate-500" aria-hidden="true">
