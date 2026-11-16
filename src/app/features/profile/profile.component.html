@@ -356,7 +356,7 @@
                                     <path d="M12 6v6h4"></path>
                                     <circle cx="12" cy="12" r="10"></circle>
                                 </svg>
-                                {{ formatDate(post.createdAt) }}
+                                {{ post.createdAt | date:'shortTime' }}
                             </span>
                         </div>
                     </article>

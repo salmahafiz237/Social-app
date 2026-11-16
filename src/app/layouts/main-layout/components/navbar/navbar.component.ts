@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit{
   private readonly authService= inject(AuthService);
   profileData = signal<any>(null);
 
+
   ngOnInit(): void {
     initFlowbite();
     const user = localStorage.getItem('user');

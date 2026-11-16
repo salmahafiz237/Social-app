@@ -2,10 +2,11 @@ import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import { Comment, CommentCreator } from '../../models/comment.interface';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-comments',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, DatePipe],
   templateUrl: './comments.component.html',
   styleUrl: './comments.component.css',
 })

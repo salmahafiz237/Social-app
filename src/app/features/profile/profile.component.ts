@@ -3,10 +3,11 @@ import { ProfileService } from './services/profile.service';
 import { Post } from '../timeline/components/posts/models/post.interface';
 import { ProfileUser } from './models/profile.interface';
 import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
-  imports: [RouterLink],
+  imports: [RouterLink, DatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',
 })
@@ -90,13 +91,4 @@ export class ProfileComponent implements OnInit {
     input.value = '';
   }
 
-  formatDate(date: string): string {
-    return new Date(date).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
-  }
 }

@@ -21,7 +21,7 @@
                 <div class="flex items-center gap-1 text-[12px] text-slate-500 mb-1">
                     <span>@{{comment.commentCreator.username}}</span>
                     <span>&middot;</span>
-                    <span>{{comment.createdAt}}</span>
+                    <span>{{comment.createdAt |date:'shortTime'}}</span>
                 </div>
 
                 @if (editingId() === comment._id) {

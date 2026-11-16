@@ -1,13 +1,15 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PostsService } from './services/posts.service';
 import { Post } from './models/post.interface';
 import { CommentsComponent } from './components/comments/comments.component';
+import { DatePipe, TitleCasePipe} from '@angular/common';
+import { SearchPipe } from '../../../../shared/pipes/search-pipe';
 
 @Component({
   selector: 'app-posts',
-  imports: [ReactiveFormsModule, CommentsComponent, RouterLink],
+  imports: [ReactiveFormsModule, CommentsComponent, RouterLink, TitleCasePipe, DatePipe, SearchPipe, FormsModule],
   templateUrl: './posts.component.html',
   styleUrl: './posts.component.css',
 })
@@ -21,6 +23,7 @@ export class PostsComponent implements OnInit {
   imgSrc = signal('');
   content = new FormControl('');
   privacy = new FormControl('public');
+  text = signal('')
 
   // update post
   editingPostId = signal<string | null>(null);

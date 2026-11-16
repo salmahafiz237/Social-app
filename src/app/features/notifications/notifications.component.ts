@@ -2,10 +2,11 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from './services/notification.service';
 import { INotification } from './models/notification.interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-notifications',
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './notifications.component.html',
   styleUrl: './notifications.component.css',
 })
@@ -129,13 +130,4 @@ export class NotificationsComponent implements OnInit {
     }
   }
 
-  formatTimeAgo(date: string): string {
-    return new Date(date).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
-  }
 }
