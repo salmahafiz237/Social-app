@@ -11,9 +11,16 @@
                 class="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50 px-2 py-1.5 transition hover:bg-slate-100"
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
+
                 <span class="sr-only">Open user menu</span>
-                <img class="h-8 w-8 rounded-full object-cover" [src]="[profileData()?.photo]" [alt]="[profileData()?.name]" />
-                <span class="hidden max-w-35 truncate text-sm font-semibold text-slate-800 md:block">{{profileData()?.name}}</span>
+
+                <img class="h-8 w-8 rounded-full object-cover" [src]="profilePhoto() || profileData()?.photo"
+                    [alt]="profileData()?.name || 'Profile'" />
+
+                <span class="hidden max-w-35 truncate text-sm font-semibold text-slate-800 md:block">
+                    {{ profileData()?.name }}
+                </span>
+
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                     class="lucide lucide-menu text-slate-500" aria-hidden="true">
@@ -73,20 +80,40 @@
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
             <ul
                 class="font-medium flex flex-col p-4 md:p-1.5 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:bg-secondColor/60">
+
                 <li>
                     <a routerLink="/timeline" routerLinkActive="bg-white text-mainColor"
                         class="block py-2 px-3 text-gray-600 rounded md:p-1" aria-current="page">
-                        <i class="fa-regular fa-house"></i> Feed</a>
+                        <i class="fa-regular fa-house"></i> Feed
+                    </a>
                 </li>
+
                 <li>
                     <a routerLink="/profile" routerLinkActive="bg-white text-mainColor"
                         class="block py-2 px-3 text-gray-600 rounded md:p-1" aria-current="page">
-                        <i class="fa-regular fa-user"></i> Profile</a>
+                        <i class="fa-regular fa-user"></i> Profile
+                    </a>
                 </li>
+
                 <li>
                     <a routerLink="/notification" routerLinkActive="bg-white text-mainColor"
-                        class="block py-2 px-3 text-gray-600 rounded md:p-1" aria-current="page">
-                        <i class="fa-regular fa-comment"></i> Notification</a>
+                        class="relative flex items-center gap-2 py-2 px-3 text-gray-600 rounded md:p-1"
+                        aria-current="page">
+
+                        <span class="relative inline-flex">
+                            <i class="fa-regular fa-bell text-lg"></i>
+
+                            @if (unreadCount() > 0) {
+                            <span class="absolute -top-2 -right-2 min-w-4 h-4 px-1
+                                    flex items-center justify-center rounded-full
+                                    bg-red-500 text-white text-2xs font-bold">
+                                {{ unreadCount() > 99 ? '99+' : unreadCount() }}
+                            </span>
+                            }
+                        </span>
+
+                        Notification
+                    </a>
                 </li>
             </ul>
         </div>

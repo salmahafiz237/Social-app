@@ -32,6 +32,11 @@ export class PostsComponent implements OnInit {
   editFile = signal<File | null>(null);
   editImgSrc = signal('');
 
+  //share
+  shareBody = new FormControl('');
+  shareModalPost = signal<Post | null>(null);
+  isSharing = signal(false);
+
   ngOnInit(): void {
     this.getPostsData();
     this.userId.set(JSON.parse(localStorage.getItem('user')!)._id);
@@ -147,4 +152,84 @@ export class PostsComponent implements OnInit {
       },
     });
   }
+
+  //----------likes------------
+  likePost(post: Post): void {
+    const userId = this.userId();
+    const wasLiked = post.likes.includes(userId);
+  
+    // Update UI immediately
+    this.allPosts.update(posts =>
+      posts.map(item => {
+        if (item._id !== post._id) return item;
+  
+        return {
+          ...item,
+          likes: wasLiked
+            ? item.likes.filter(id => id !== userId)
+            : [...item.likes, userId],
+          likesCount: wasLiked
+            ? item.likesCount - 1
+            : item.likesCount + 1
+        };
+      })
+    );
+  
+    this.postsService.likePost(post._id).subscribe({
+      error: () => {
+        // Restore the posts if the request fails
+        this.allPosts.update(posts =>
+          posts.map(item =>
+            item._id === post._id ? post : item
+          )
+        );
+      }
+    });
+  }
+
+//--------share-------------
+sharePost(postId: string): void {
+  const body = this.shareBody.value?.trim() || '';
+
+  this.postsService.sharePost(postId, body).subscribe({
+    next: () => {
+      this.shareBody.setValue('');
+      this.getPostsData();
+    },
+    error: err => {
+      console.log(err);
+    }
+  });
+}
+
+openShareModal(post: Post): void {
+  this.shareModalPost.set(post);
+  this.shareBody.setValue('');
+}
+
+closeShareModal(): void {
+  this.shareModalPost.set(null);
+  this.shareBody.setValue('');
+}
+
+confirmShare(): void {
+  const post = this.shareModalPost();
+  if (!post || this.isSharing()) return;
+
+  this.isSharing.set(true);
+
+  const body = this.shareBody.value?.trim() || '';
+
+  this.postsService.sharePost(post._id, body).subscribe({
+    next: () => {
+      this.isSharing.set(false);
+      this.closeShareModal();
+      this.getPostsData();
+    },
+    error: (err) => {
+      this.isSharing.set(false);
+      console.log(err);
+    }
+  });
+}
 }

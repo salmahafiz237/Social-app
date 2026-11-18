@@ -15,12 +15,11 @@ export class NotificationsComponent implements OnInit {
   private readonly router = inject(Router);
 
   notifications = signal<INotification[]>([]);
-  unreadCount = signal<number>(0);
+  unreadCount = this.notificationsService.unreadCount;
   activeFilter = signal<'all' | 'unread'>('all');
 
   ngOnInit(): void {
     this.loadNotifications();
-    this.loadUnreadCount();
   }
 
   loadNotifications(): void {
@@ -74,7 +73,7 @@ export class NotificationsComponent implements OnInit {
               )
             );
           }
-          this.unreadCount.set(Math.max(0, this.unreadCount() - 1));
+          this.notificationsService.decreaseUnreadCount();
         }
       },
       error: (err) => {
@@ -96,7 +95,7 @@ export class NotificationsComponent implements OnInit {
               this.notifications().map((item) => ({ ...item, isRead: true }))
             );
           }
-          this.unreadCount.set(0);
+          this.notificationsService.resetUnreadCount();
         }
       },
       error: (err) => {

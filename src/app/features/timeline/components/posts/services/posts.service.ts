@@ -33,4 +33,12 @@ export class PostsService {
   updatePost(postId:string, data:FormData):Observable<any>{
     return this.httpClient.put(environment.baseUrl + `posts/${postId}`, data)
   }
+
+  likePost(postId: string): Observable<any> {
+    return this.httpClient.put(environment.baseUrl + `posts/${postId}/like`,{});
+  }
+  
+  sharePost(postId: string, body: string): Observable<any> {
+    return this.httpClient.post(environment.baseUrl + `posts/${postId}/share`,{ body });
+  }
 }

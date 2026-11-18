@@ -29,6 +29,10 @@ export class ProfileComponent implements OnInit {
       next: (res) => {
         if (res.success) {
           this.profileData.set(res.data.user);
+  
+          // Update shared profile photo
+          this.profileService.profilePhoto.set(res.data.user.photo);
+  
           this.getUserPosts(res.data.user._id);
         }
       },
@@ -90,5 +94,7 @@ export class ProfileComponent implements OnInit {
 
     input.value = '';
   }
+
+  
 
 }

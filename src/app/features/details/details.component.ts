@@ -1,5 +1,5 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { Location } from '@angular/common';
+import { DatePipe, Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { PostsService } from '../timeline/components/posts/services/posts.service';
@@ -8,7 +8,7 @@ import { CommentsComponent } from '../timeline/components/posts/components/comme
 
 @Component({
   selector: 'app-details',
-  imports: [ReactiveFormsModule, CommentsComponent],
+  imports: [ReactiveFormsModule, CommentsComponent,DatePipe],
   templateUrl: './details.component.html',
   styleUrl: './details.component.css',
 })

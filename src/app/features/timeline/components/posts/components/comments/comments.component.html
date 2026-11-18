@@ -59,16 +59,98 @@
                 }
             </div>
 
+            <!-- Comment actions -->
             <div class="flex items-center gap-3 mt-1 ml-2 text-[12px] text-slate-500 font-semibold">
-                <button class="cursor-pointer hover:underline">Like ({{comment.likes.length}})</button>
-                <button class="cursor-pointer hover:underline">Reply</button>
-
-                @if (comment.commentCreator._id === userId()) {
-                <button (click)="startEdit(comment)" class="cursor-pointer hover:underline">Edit</button>
-                <button (click)="deleteComment(comment._id)"
-                    class="cursor-pointer hover:underline text-red-600">Delete</button>
+            
+                <button (click)="likeComment(comment)" class="cursor-pointer hover:underline">
+                    {{ comment.likes.includes(userId()) ? 'Liked' : 'Like' }}
+                    ({{ comment.likes.length }})
+                </button>
+            
+                <button (click)="toggleReplyForm(comment._id)" class="cursor-pointer hover:underline">
+                    Reply
+                </button>
+            
+                @if (comment.repliesCount > 0 || loadedReplies()[comment._id]) {
+                <button (click)="toggleReplies(comment._id)" class="cursor-pointer hover:underline text-blue-600">
+            
+                    {{ expandedReplies()[comment._id] ? 'Hide' : 'Show' }}
+                    Replies ({{ comment.repliesCount || 0 }})
+                </button>
                 }
+            
+                @if (comment.commentCreator._id === userId()) {
+                <button (click)="startEdit(comment)" class="cursor-pointer hover:underline">
+                    Edit
+                </button>
+            
+                <button (click)="deleteComment(comment._id)" class="cursor-pointer hover:underline text-red-600">
+                    Delete
+                </button>
+                }
+            
             </div>
+            
+            <!-- Reply input -->
+            @if (replyingTo() === comment._id) {
+                <div class="flex gap-2 mt-3 ml-2 w-full">
+                <input type="text" [formControl]="replyContent" placeholder="Write a reply..."
+                    (keydown.enter)="createReply(comment._id)"
+                    class="flex-1 min-w-0 rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none focus:border-blue-400" />
+            
+                <button type="button" (click)="createReply(comment._id)" [disabled]="!replyContent.value?.trim()"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-xl text-xs font-bold disabled:opacity-50 cursor-pointer">
+                    Send
+                </button>
+            </div>
+            }
+            
+            <!-- Replies list -->
+            @if (expandedReplies()[comment._id]) {
+                <div class="ml-6 mt-3 pl-3 w-full border-l-2 border-slate-200 space-y-3">
+            
+                @for (reply of (repliesByComment()[comment._id] || []); track reply._id) {
+            
+                <div class="flex gap-2">
+            
+                    <img [src]="reply.commentCreator.photo" [alt]="reply.commentCreator.name"
+                        class="w-7 h-7 rounded-full object-cover shrink-0" />
+            
+                    <div class="bg-slate-100 rounded-2xl rounded-tl-none px-3 py-2 min-w-0">
+            
+                        <span class="text-xs font-bold text-slate-900">
+                            {{ reply.commentCreator.name }}
+                        </span>
+            
+                        <div class="flex items-center gap-1 text-[11px] text-slate-500 mb-1">
+                            <span>
+                                @{{ reply.commentCreator.username }}
+                            </span>
+                            <span>&middot;</span>
+                            <span>
+                                {{ reply.createdAt | date:'shortTime' }}
+                            </span>
+                        </div>
+            
+                        <p class="text-sm text-slate-800 wrap-break-word">
+                            {{ reply.content }}
+                        </p>
+            
+                    </div>
+            
+                </div>
+                }
+            
+                @if (loadedReplies()[comment._id] &&
+                (repliesByComment()[comment._id] || []).length === 0) {
+                <p class="text-xs text-slate-400">
+                    No replies yet.
+                </p>
+                }
+            
+            </div>
+            }
+
         </div>
     </div>
     }

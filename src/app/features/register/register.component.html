@@ -261,11 +261,8 @@
                         }
 
                         <!-- button  -->
-                        <button [disabled]="isLoading()" type="submit" class="w-full rounded-xl py-3 text-base font-extrabold text-white transition disabled:opacity-60 bg-[#00298d] hover:bg-[#001f6b]">Create
+                        <button type="submit" class="w-full rounded-xl py-3 text-base font-extrabold text-white transition disabled:opacity-60 bg-[#00298d] hover:bg-[#001f6b]">Create
                             New Account
-                        @if(isLoading()){
-                            <span><i class="fa-solid fa-spinner"></i></span>
-                        }
                         </button>
 
                         @if(mgText()){

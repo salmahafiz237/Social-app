@@ -15,7 +15,6 @@ export class RegisterComponent {
   private readonly router = inject(Router);
   private readonly formBuilder = inject(FormBuilder);
   mgText = signal("");
-  isLoading = signal(false);
 
   registerForm = this.formBuilder.group({
     name: ['',  [Validators.required, Validators.minLength(3)]],
@@ -23,7 +22,7 @@ export class RegisterComponent {
     email: ['', [Validators.required, Validators.email]],
     dateOfBirth: ['', Validators.required],
     gender: ['', Validators.required],
-    password: ['',[Validators.required,Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/)]],
+    password: ['',[Validators.required,Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d).{8,}$/)]],
     rePassword: ['', Validators.required]
   }, { validators:this.confirmPassword})
 
@@ -48,8 +47,7 @@ export class RegisterComponent {
   }
 
   sendRegisterData():void{
-    if(this.registerForm.valid){      
-      this.isLoading.set(true);
+    if(this.registerForm.valid){  
       console.log(this.registerForm.value);
 
       this.authService.signUp(this.registerForm.value).subscribe({
@@ -61,11 +59,7 @@ export class RegisterComponent {
         error:(err) =>{
           console.log(err.error.message);
           this.mgText.set(err.error.message);
-          this.isLoading.set(false);
         },
-        complete:()=>{
-          this.isLoading.set(false);
-        }
       });
     }
     else{
